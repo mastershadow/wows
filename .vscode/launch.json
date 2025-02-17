@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Server",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "it.roccatello.wows.WowsApplication",
+      "projectName": "server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Client",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "client",
+      "url": "http://localhost:4200/"
+    }
+
+  ]
+}

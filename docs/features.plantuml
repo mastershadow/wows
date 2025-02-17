@@ -1,0 +1,34 @@
+@startmindmap features
++ **WOWS**
+++ Asset management
++++ Balance
++++ Movements
+++++ In
+++++ Out
++++ Assets
+++++ Ticker
++++++ Enabled (t/f)
++++++ Minimum amount (doule)
++++++ Autotrade (t/f)
+++ Settings
++++ Available balance ratio (%)
++++ Max allocation of available balance per ticker (%)
++++ Stop loss (%)
++++ Provider
+++++ Buy spread
+++++ Sell spread
+-- Notifications
+--- Email
+--- Telegram bot
+-- Data management
+--- Abstractions
+---- Data model
+---- Actuators
+---- Readers
+--- Candles acquisition
+-- Data actions
+--- Trend evaluation
+--- Trades management
+---- Buy
+---- Sell
+@endmindmap
