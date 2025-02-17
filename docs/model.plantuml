@@ -1,0 +1,98 @@
+@startuml model
+class Balance {
+  free_cash
+}
+
+class Asset {
+  ticker
+  amount
+}
+
+Balance --{ Asset
+Asset -- Ticker
+
+class Trade {
+  ticker
+  qty
+  buy_timestamp
+  buy_price
+  max_price
+  min_price
+  sell_timestamp
+  sell_price
+  margin
+
+}
+
+class Transaction {
+  timestamp
+  ticker
+  qty
+  price
+  total
+  costs
+}
+
+class Ticker {
+  ticker
+  enabled
+  autotrade
+  keep_minimum
+}
+
+class Candle {
+  ticker
+  timestamp
+  interval
+  open
+  close
+  min
+  max
+}
+
+Ticker --{ Candle
+Ticker }-- Transaction
+Trade --{ Ticker
+Trend }-- Ticker
+
+class Provider {
+  type
+  enabled
+  buy_spread
+  sell_spread
+  fix_commission
+}
+
+class Trend {
+  ticker
+  timestamp
+  type
+}
+
+class Indicator {
+
+}
+
+class TrendType {
+}
+
+Trend -- TrendType
+Trend --{ Indicator
+
+class Settings {
+  code
+  value
+}
+
+class Notification {
+  content
+}
+
+class NotificationType
+
+Notification -- NotificationType
+
+class ScheduledJob {
+}
+
+@enduml

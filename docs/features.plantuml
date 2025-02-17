@@ -2,14 +2,15 @@
 + **WOWS**
 ++ Asset management
 +++ Balance
-+++ Movements
+++++ Cash
+++++ Assets
++++ Transactions
 ++++ In
 ++++ Out
-+++ Assets
-++++ Ticker
-+++++ Enabled (t/f)
-+++++ Minimum amount (doule)
-+++++ Autotrade (t/f)
++++ Ticker
+++++ Enabled (t/f)
+++++ Minimum amount (double)
+++++ Autotrade (t/f)
 ++ Settings
 +++ Available balance ratio (%)
 +++ Max allocation of available balance per ticker (%)
