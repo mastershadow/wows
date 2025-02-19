@@ -14,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class, DataSourceAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class })
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class, DataSourceAutoConfiguration.class,
+    UserDetailsServiceAutoConfiguration.class })
 @ConfigurationPropertiesScan("it.roccatello.wows")
 public class GeneratePasswordApplication implements CommandLineRunner {
 

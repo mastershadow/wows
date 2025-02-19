@@ -11,6 +11,13 @@
       "envFile": "${workspaceFolder}/.env"
     },
     {
+      "name": "Client",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "client",
+      "url": "http://localhost:4200/"
+    },
+    {
       "type": "java",
       "name": "Generate password example",
       "request": "launch",
@@ -20,14 +27,6 @@
       "args": "mynewpassword",
       "vmArgs": "-Dspring.profiles.active=local",
       "envFile": "${workspaceFolder}/.env"
-    },
-    {
-      "name": "Client",
-      "type": "chrome",
-      "request": "launch",
-      "preLaunchTask": "client",
-      "url": "http://localhost:4200/"
     }
-
   ]
 }
