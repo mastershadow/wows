@@ -11,6 +11,17 @@
       "envFile": "${workspaceFolder}/.env"
     },
     {
+      "type": "java",
+      "name": "Generate password example",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "it.roccatello.wows.GeneratePasswordApplication",
+      "projectName": "server",
+      "args": "mynewpassword",
+      "vmArgs": "-Dspring.profiles.active=local",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
       "name": "Client",
       "type": "chrome",
       "request": "launch",
