@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LoginDto extends BaseDtoModel {
+public class DtoLogin extends BaseDtoModel {
   private String email;
   private String password;
 }

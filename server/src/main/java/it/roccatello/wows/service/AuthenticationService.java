@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import it.roccatello.wows.model.db.User;
-import it.roccatello.wows.model.dto.LoginDto;
+import it.roccatello.wows.model.dto.DtoLogin;
 import it.roccatello.wows.repository.UserRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class AuthenticationService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  public User authenticate(LoginDto input) {
+  public User authenticate(DtoLogin input) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(input.getEmail(), input.getPassword()));
 
