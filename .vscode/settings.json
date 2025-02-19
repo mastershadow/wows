@@ -2,4 +2,5 @@
   "java.compile.nullAnalysis.mode": "disabled",
   "plantuml.server": "http://host.docker.internal:9999",
   "plantuml.render": "PlantUMLServer",
+  "java.configuration.updateBuildConfiguration": "automatic",
 }

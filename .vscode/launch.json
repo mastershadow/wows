@@ -7,7 +7,7 @@
       "cwd": "${workspaceFolder}",
       "mainClass": "it.roccatello.wows.WowsApplication",
       "projectName": "server",
-      "args": "",
+      "args": "--spring.profiles.active=local",
       "envFile": "${workspaceFolder}/.env"
     },
     {
