@@ -11,6 +11,7 @@ import it.roccatello.wows.repository.UserRepository;
 
 @Service
 public class AuthenticationService {
+  
   @Autowired
   private UserRepository userRepository;
 

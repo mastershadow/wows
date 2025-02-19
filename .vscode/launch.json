@@ -24,8 +24,7 @@
       "cwd": "${workspaceFolder}",
       "mainClass": "it.roccatello.wows.GeneratePasswordApplication",
       "projectName": "server",
-      "args": "mynewpassword",
-      "vmArgs": "-Dspring.profiles.active=local",
+      "args": "--spring.profiles.active=local --password=mynewpassword",
       "envFile": "${workspaceFolder}/.env"
     }
   ]

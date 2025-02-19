@@ -10,7 +10,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseDbModel extends BaseModel {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false)
   protected Long id;
 
