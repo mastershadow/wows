@@ -95,4 +95,14 @@ Notification -- NotificationType
 class ScheduledJob {
 }
 
+class User {
+
+}
+
+class Token {
+
+}
+
+User -- Token
+Notification -- User
 @enduml
