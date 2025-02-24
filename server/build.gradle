@@ -41,6 +41,7 @@ dependencies {
 	implementation "org.modelmapper:modelmapper:${mm_version}"
 	implementation "org.modelmapper.extensions:modelmapper-spring:${mm_version}"
 
+	implementation 'org.ta4j:ta4j-core:0.17'
 
 	implementation "io.jsonwebtoken:jjwt-api:${jjwt_version}"
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwt_version}"
