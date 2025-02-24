@@ -20,7 +20,8 @@
 		"vscode": {
 			"extensions": [
 				"jebbs.plantuml",
-				"vmware.vscode-boot-dev-pack"
+				"vmware.vscode-boot-dev-pack",
+				"Angular.ng-template"
 			]
 		}
 	}

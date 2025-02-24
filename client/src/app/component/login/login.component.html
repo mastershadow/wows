@@ -1,0 +1,21 @@
+<h1>WOWs Login</h1>
+<form class="login-form">
+  <mat-form-field class="full-width">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" placeholder="Email">
+    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+      <mat-error>Please enter a valid email address</mat-error>
+    }
+    @if (emailFormControl.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [formControl]="passwordFormControl" placeholder="Password">
+    @if (passwordFormControl.hasError('required')) {
+      <mat-error>Password is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+  <button mat-flat-button (click)="onLoginClick()">Login</button>
+</form>
