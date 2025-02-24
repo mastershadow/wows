@@ -23,14 +23,14 @@ export class LoginComponent {
 
   constructor(private auth: AuthService, private router: Router) {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['transactions']);
+      this.router.navigate(['trades']);
     }
   }
 
   onLoginClick(): void {
     if (this.emailFormControl.valid && this.passwordFormControl.valid) {
       this.auth.login(this.emailFormControl.value!, this.passwordFormControl.value!).subscribe(u => {
-        this.router.navigate(['transactions']);
+        this.router.navigate(['trades']);
       }, e => {
         this._snackBar.open("Error logging in");
       });

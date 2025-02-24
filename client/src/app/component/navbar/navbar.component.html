@@ -1,1 +1,19 @@
-<p>navbar works!</p>
+<mat-toolbar>
+  <span>WoWs</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [routerLink]="['/balance']" routerLinkActive="active">
+    <mat-icon>money</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/trades" routerLinkActive="active">
+    <mat-icon>timeline</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/assets" routerLinkActive="active">
+    <mat-icon>assignment</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/transactions" routerLinkActive="active">
+    <mat-icon>cached</mat-icon>
+  </button>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

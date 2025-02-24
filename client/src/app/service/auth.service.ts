@@ -39,15 +39,16 @@ export class AuthService {
         }));
   }
 
-  logout() {
+  logout(): Observable<boolean> {
     // remove user from local storage and set current user to null
-    this.api.logout().subscribe(() => {
+    return this.api.logout().pipe(map(v => {
       this.currentUserSubject.next(this.unloggedUser());
-    });
+      return v;
+    }));
   }
 
   unloggedUser(): User {
-    return { } as User;
+    return {} as User;
   }
 
   getUserFromStorageOrDefault(): User {
