@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -11,6 +12,12 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 public class WebConfig extends DelegatingWebMvcConfiguration {
@@ -24,8 +31,8 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
         registry.addResourceHandler("/webjars/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true);
+                .addResourceLocations("classpath:/META-INF/resources/webjars/")
+                .resourceChain(true);
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 
@@ -53,6 +60,17 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
         return slr;
     }
 
+    @Bean
+    @Primary
+    ObjectMapper objectMapper() {
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
 
+    }
 
 }

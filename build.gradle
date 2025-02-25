@@ -1,0 +1,10 @@
+allprojects {
+group = 'it.roccatello'
+version = '0.0.1-SNAPSHOT'
+}
+  
+tasks.register('projectVersion') {
+    doLast {
+        println "${version}"
+    }
+}

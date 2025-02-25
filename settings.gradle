@@ -1,1 +1,3 @@
 rootProject.name = 'wows'
+
+include("server")
