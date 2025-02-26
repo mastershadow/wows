@@ -14,6 +14,7 @@ import lombok.Setter;
 public class AppProperties {
   private Boolean email = false;
   private String emailFrom;
+  private String emailTo;
   private Boolean scheduler = false;
   private String frontendUrl;
   private Boolean bot = false;

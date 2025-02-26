@@ -74,6 +74,10 @@ public class SchedulerService {
   public Date startJob(JobDetail jobDetail, Trigger trigger) {
     final Scheduler scheduler = this.schedulerFactoryBean.getScheduler();
     try {
+      if (scheduler.isShutdown()) {
+        return null;
+      }
+
       final Date scheduleDate = scheduler.scheduleJob(jobDetail, trigger);
       if (scheduleDate != null) {
         this.scheduledJobs.add(jobDetail);
@@ -86,7 +90,7 @@ public class SchedulerService {
   }
 
   private void startProvidersFetchingJob() {
-    final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "Sender", "Email");
+    final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "ProvidersFetchingJob", "Email");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("ProvidersFetchingJobTrigger", new Date(),
         FIVE_MINUTES, Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
@@ -94,21 +98,21 @@ public class SchedulerService {
   }
 
   private void startEmailSendingJob() {
-    final JobDetail details = this.jobCreator.createJob(EmailSendingJob.class, true, context, "Sender", "Email");
+    final JobDetail details = this.jobCreator.createJob(EmailSendingJob.class, true, context, "EmailSendingJob", "Email");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("EmailJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
   }
 
   private void startTelegramBot() {
-    final JobDetail details = this.jobCreator.createJob(TelegramBotJob.class, true, context, "Sender", "Push");
+    final JobDetail details = this.jobCreator.createJob(TelegramBotJob.class, true, context, "TelegramBotSendingJob", "Push");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("PushJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
   }
 
   private void startCleanupJob() {
-    final JobDetail details = this.jobCreator.createJob(CleanupJob.class, true, context, "Cleanup", "Cleanup");
+    final JobDetail details = this.jobCreator.createJob(CleanupJob.class, true, context, "Cleanup", "CleanupJob");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("CleanupJobTrigger", new Date(), HOUR,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);

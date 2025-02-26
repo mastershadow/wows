@@ -11,5 +11,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Balance extends BaseDbModel {
-  private BigDecimal freeCash;
+  private BigDecimal available;
 }

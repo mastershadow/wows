@@ -14,4 +14,8 @@ public class Notification extends BaseDbModel {
 
   @ManyToOne
   private NotificationType type;
+
+  private String event;
+
+  private String content;
 }

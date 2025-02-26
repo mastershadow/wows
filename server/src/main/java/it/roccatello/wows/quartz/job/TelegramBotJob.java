@@ -1,5 +1,6 @@
 package it.roccatello.wows.quartz.job;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -14,15 +15,19 @@ import okhttp3.MediaType;
 @Slf4j
 @DisallowConcurrentExecution
 public class TelegramBotJob extends QuartzJobBean {
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+  public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    @Autowired
-    private AppProperties appProperties;
+  @Autowired
+  private AppProperties appProperties;
 
-    @Autowired
-    private NotificationService notificationService;
+  @Autowired
+  private NotificationService notificationService;
 
-    @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+  @Override
+  protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+    if (BooleanUtils.isNotTrue(this.appProperties.getBot())) {
+      log.debug("Bot messages are disabled");
+      return;
     }
+  }
 }

@@ -1,6 +1,6 @@
 @startuml model
 class Balance {
-  free_cash
+  available
 }
 
 class Asset {
@@ -85,6 +85,7 @@ class Settings {
 }
 
 class Notification {
+  event
   content
 }
 

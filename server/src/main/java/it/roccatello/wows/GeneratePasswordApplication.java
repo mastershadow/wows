@@ -33,8 +33,11 @@ public class GeneratePasswordApplication implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) throws Exception {
     if (args.containsOption("password")) {
-      log.info("Save this password into your user");
-      log.info(this.encoder.encode(args.getOptionValues("password").get(0)));
+      
+      String password = this.encoder.encode(args.getOptionValues("password").get(0));
+      log.info("Save this password into your user: {}", password);
+      log.info("Sample SQL");
+      log.info("INSERT INTO `user` (`email`, `password`) VALUES ('email@address.ext', '{}');", password);
       this.context.close();
     }
   }
