@@ -29,6 +29,9 @@ public class Trade extends BaseDbModel {
   @Column(precision = 32, scale = 10)
   private BigDecimal margin;
 
+  private Boolean open = Boolean.TRUE;
+  private Boolean stopLoss = Boolean.TRUE;
+
   private LocalDateTime buyTimestamp;
   private LocalDateTime sellTimestamp;
 }
