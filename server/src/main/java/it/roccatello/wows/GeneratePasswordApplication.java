@@ -37,7 +37,7 @@ public class GeneratePasswordApplication implements ApplicationRunner {
       String password = this.encoder.encode(args.getOptionValues("password").get(0));
       log.info("Save this password into your user: {}", password);
       log.info("Sample SQL");
-      log.info("INSERT INTO `user` (`email`, `password`) VALUES ('email@address.ext', '{}');", password);
+      log.info("INSERT INTO \"user\" (\"email\", \"password\") VALUES ('email@address.ext', '{}');", password);
       this.context.close();
     }
   }
