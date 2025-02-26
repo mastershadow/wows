@@ -14,6 +14,6 @@ public class Ticker extends BaseDbModel {
   private String ticker;
   private Boolean enabled;
   private Boolean autotrade;
-  @Column(nullable = true)
+  @Column(nullable = true, precision = 32, scale = 10)
   private BigDecimal keepMinimum;
 }
