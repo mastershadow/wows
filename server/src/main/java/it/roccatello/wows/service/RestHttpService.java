@@ -28,7 +28,16 @@ public class RestHttpService {
         .build();
   }
 
-  public Observable<Response> request(Request request) {
+  public Response request(Request request) {
+    try {
+      return client.newCall(request).execute();
+    } catch (IOException e) {
+      log.error("Error serving request", e);
+      return null;
+    }
+  }
+
+  public Observable<Response> requestObservable(Request request) {
     return Observable.create(emitter -> {
       try {
         final Response response = client.newCall(request).execute();

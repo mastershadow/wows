@@ -37,6 +37,8 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.17.0'
 
 	implementation 'io.reactivex.rxjava3:rxjava:3.1.10'
+	
+	implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
 
 	implementation "com.squareup.okhttp3:okhttp:${okhttp_version}"
 	implementation "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"

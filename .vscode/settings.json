@@ -3,4 +3,5 @@
   "plantuml.server": "http://host.docker.internal:9999",
   "plantuml.render": "PlantUMLServer",
   "java.configuration.updateBuildConfiguration": "automatic",
+  "editor.wordWrapColumn": 160,
 }
