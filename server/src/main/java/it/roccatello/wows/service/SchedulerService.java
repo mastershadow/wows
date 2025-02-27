@@ -90,7 +90,7 @@ public class SchedulerService {
   }
 
   private void startProvidersFetchingJob() {
-    final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "ProvidersFetchingJob", "Email");
+    final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "ProvidersFetchingJob", "Data");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("ProvidersFetchingJobTrigger", new Date(),
         FIVE_MINUTES, Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
@@ -98,21 +98,21 @@ public class SchedulerService {
   }
 
   private void startEmailSendingJob() {
-    final JobDetail details = this.jobCreator.createJob(EmailSendingJob.class, true, context, "EmailSendingJob", "Email");
+    final JobDetail details = this.jobCreator.createJob(EmailSendingJob.class, true, context, "EmailSendingJob", "Notifications");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("EmailJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
   }
 
   private void startTelegramBot() {
-    final JobDetail details = this.jobCreator.createJob(TelegramBotJob.class, true, context, "TelegramBotSendingJob", "Push");
+    final JobDetail details = this.jobCreator.createJob(TelegramBotJob.class, true, context, "TelegramBotSendingJob", "Notifications");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("PushJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
   }
 
   private void startCleanupJob() {
-    final JobDetail details = this.jobCreator.createJob(CleanupJob.class, true, context, "Cleanup", "CleanupJob");
+    final JobDetail details = this.jobCreator.createJob(CleanupJob.class, true, context, "CleanupJob", "Chores");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("CleanupJobTrigger", new Date(), HOUR,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
