@@ -55,7 +55,11 @@ public class ProvidersFetchingJob extends QuartzJobBean {
               
               ticker -> {
                 var req = new BrokerCandleRequest(ticker.getTicker(), null);
-                broker.fetchCandles(req);
+                log.debug("Fetching ticker: {}", req);  
+                var res = broker.fetchCandles(req);
+                if (res != null) {
+
+                }
               });
           });
     });
