@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Ticker extends BaseDbModel {
+  private String name;
   private String ticker;
   private Boolean enabled;
   private Boolean autotrade;

@@ -41,7 +41,7 @@ public class JpaConfig {
 
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
+    //em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
     em.setPackagesToScan(MODEL_DB_PACKAGES);
     em.setJpaVendorAdapter(vendorAdapter);
     em.setJpaProperties(additionalProperties());
@@ -80,6 +80,9 @@ public class JpaConfig {
 
     properties.setProperty("hibernate.jdbc.lob.non_contextual_creation",
         env.getProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
+        
+    properties.setProperty("hibernate.column_ordering_strategy",
+    env.getProperty("spring.jpa.properties.hibernate.column_ordering_strategy"));
 
     properties.setProperty("hibernate.show_sql",
         env.getProperty("spring.jpa.show-sql"));
