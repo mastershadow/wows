@@ -4,13 +4,16 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -28,6 +31,9 @@ public class JpaConfig {
   @Autowired
   private Environment env;
 
+  @Autowired
+  private ConfigurableListableBeanFactory beanFactory;
+
   @Bean
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -35,6 +41,7 @@ public class JpaConfig {
 
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
+    em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
     em.setPackagesToScan(MODEL_DB_PACKAGES);
     em.setJpaVendorAdapter(vendorAdapter);
     em.setJpaProperties(additionalProperties());
