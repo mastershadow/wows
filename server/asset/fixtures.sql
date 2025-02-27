@@ -10,7 +10,7 @@ INSERT INTO "interval" ("id", "code") VALUES (6, '2h');
 INSERT INTO "interval" ("id", "code") VALUES (7, '4h');
 INSERT INTO "interval" ("id", "code") VALUES (8, '6h');
 INSERT INTO "interval" ("id", "code") VALUES (9, '8h');
-INSERT INTO "interval" ("id", "code") VALUES (10, '2h');
+INSERT INTO "interval" ("id", "code") VALUES (10, '16h');
 INSERT INTO "interval" ("id", "code") VALUES (11, '1d');
 
 INSERT INTO public.provider(
