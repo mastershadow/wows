@@ -19,6 +19,7 @@ INSERT INTO public.provider(
 
 INSERT INTO public.settings(code, value) VALUES 
 ('keep-balance-available-ratio', 0.1),
+('enabled-intervals', '[5]'),
 ('max-balance-allocation-per-ticker-ratio', 0.1),
 ('min-gain-margin', 0.02),
 ('stop-loss-warning', 0.25),

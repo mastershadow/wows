@@ -11,6 +11,8 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import it.roccatello.wows.service.TickerService;
 import it.roccatello.wows.model.data.BrokerCandleRequest;
+import it.roccatello.wows.model.db.Interval;
+import it.roccatello.wows.service.IntervalService;
 import it.roccatello.wows.service.ProviderService;
 import it.roccatello.wows.service.broker.BrokerService;
 import jakarta.annotation.PostConstruct;
@@ -27,6 +29,9 @@ public class ProvidersFetchingJob extends QuartzJobBean {
   private TickerService tickerService;
 
   @Autowired
+  private IntervalService intervalService;
+
+  @Autowired
   private Map<String, BrokerService> brokerServices;
 
   private Optional<BrokerService> getBroker(String code) {
@@ -36,32 +41,32 @@ public class ProvidersFetchingJob extends QuartzJobBean {
   @PostConstruct
   private void configure() {
     this.providerService.enabledProviders().forEach(
-      provider -> {
-        getBroker(provider.getCode())
-          .ifPresent(broker -> broker.configure(provider));
-    });
+        provider -> {
+          getBroker(provider.getCode())
+              .ifPresent(broker -> broker.configure(provider));
+        });
   }
 
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
     this.providerService.firstProvider().ifPresent(
+        provider -> {
+          getBroker(provider.getCode()).ifPresent(
 
-      provider -> {
-        getBroker(provider.getCode()).ifPresent(
+              broker -> {
+                log.debug("Candle fetching on provider: {}", broker.getCode());
+                this.tickerService.enabledTickers().forEach(
+                    ticker -> {
+                      for (Interval interval : this.intervalService.enabledIntervals()) {
+                        var req = new BrokerCandleRequest(ticker.getTicker(), interval.getCode());
+                        log.debug("Fetching ticker: {}", req);
+                        var res = broker.fetchCandles(req);
+                        if (res != null) {
 
-          broker -> {
-            log.debug("Candle fetching on provider: {}", broker.getCode());  
-            this.tickerService.enabledTickers().forEach(
-              
-              ticker -> {
-                var req = new BrokerCandleRequest(ticker.getTicker(), null);
-                log.debug("Fetching ticker: {}", req);  
-                var res = broker.fetchCandles(req);
-                if (res != null) {
-
-                }
+                        }
+                      }
+                    });
               });
-          });
-    });
+        });
   }
 }

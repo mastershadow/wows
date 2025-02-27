@@ -26,13 +26,23 @@ public class IntervalService extends EntityManagerAwareService {
   @Autowired
   private IntervalRepository repository;
 
+  @Autowired
+  private SettingsService settingsService;
+
   @Getter
   private Map<IntervalConst, Interval> intervals;
+  
+  @Getter
+  private List<Interval> enabledIntervals;
 
   @PostConstruct
   private void postConstruct() {
     this.intervals = this.repository.findAll().stream().peek(this.entityManager::detach)
         .collect(Collectors.toMap(i -> IntervalConst.fromCode(i.getCode()), Function.identity()));
+
+    this.enabledIntervals = this.repository
+        .findAllById(this.settingsService.getList(SettingsService.Code.ENABLED_INTERVALS)).stream()
+        .peek(this.entityManager::detach).toList();
   }
 
   public Interval interval(IntervalConst ic) {
