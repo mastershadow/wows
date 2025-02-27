@@ -41,7 +41,7 @@ public class JpaConfig {
 
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    //em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
+    em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
     em.setPackagesToScan(MODEL_DB_PACKAGES);
     em.setJpaVendorAdapter(vendorAdapter);
     em.setJpaProperties(additionalProperties());

@@ -22,7 +22,7 @@
       "name": "Generate password example",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "mainClass": "it.roccatello.wows.GeneratePasswordApplication",
+      "mainClass": "it.roccatello.wows.WowsApplication",
       "projectName": "server",
       "args": "--spring.profiles.active=local --password=mynewpassword",
       "envFile": "${workspaceFolder}/.env"

@@ -2,9 +2,11 @@ package it.roccatello.wows.config;
 
 import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -37,7 +39,7 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
     }
 
     @Bean
-    public FreeMarkerViewResolver freemarkerViewResolver() {
+    FreeMarkerViewResolver freemarkerViewResolver() {
         final FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
         resolver.setCache(true);
         resolver.setPrefix("");
@@ -46,12 +48,23 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
     }
 
     @Bean
-    public FreeMarkerConfigurer freemarkerConfig() {
+    FreeMarkerConfigurer freemarkerConfig() {
         final FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
         freeMarkerConfigurer.setTemplateLoaderPath("classpath:/templates");
         freeMarkerConfigurer.setDefaultEncoding("UTF-8");
         return freeMarkerConfigurer;
     }
+
+
+	@Bean
+	MessageSource messageSource() {
+		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setFallbackToSystemLocale(true);
+		messageSource.setUseCodeAsDefaultMessage(true);
+		return messageSource;
+	}
 
     @Bean
     public LocaleResolver localeResolver() {
