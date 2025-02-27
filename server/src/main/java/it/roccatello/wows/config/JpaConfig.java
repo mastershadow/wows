@@ -87,6 +87,9 @@ public class JpaConfig {
     properties.setProperty("hibernate.show_sql",
         env.getProperty("spring.jpa.show-sql"));
 
+    properties.setProperty("hibernate.jdbc.time_zone",
+        env.getProperty("spring.jpa.properties.hibernate.jdbc.time_zone"));
+
     properties.setProperty("hibernate.hbm2ddl.schema-generation.script.append",
         env.getProperty("spring.jpa.properties.hibernate.hbm2ddl.schema-generation.script.append"));
 
