@@ -55,23 +55,23 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
         return freeMarkerConfigurer;
     }
 
-
-	@Bean
-	MessageSource messageSource() {
-		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		messageSource.setFallbackToSystemLocale(true);
-		messageSource.setUseCodeAsDefaultMessage(true);
-		return messageSource;
-	}
-
     @Bean
     public LocaleResolver localeResolver() {
         final AcceptHeaderLocaleResolver slr = new AcceptHeaderLocaleResolver();
         slr.setDefaultLocale(Locale.ITALIAN);
         return slr;
     }
+
+    // FIXME: this causes spring to crash at startup 
+    // @Bean
+    // MessageSource messageSource() {
+    //     final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+    //     messageSource.setBasename("classpath:messages");
+    //     messageSource.setDefaultEncoding("UTF-8");
+    //     messageSource.setFallbackToSystemLocale(true);
+    //     messageSource.setUseCodeAsDefaultMessage(true);
+    //     return messageSource;
+    // }
 
     @Bean
     @Primary

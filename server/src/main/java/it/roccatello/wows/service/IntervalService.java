@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.roccatello.wows.model.db.Interval;
-import it.roccatello.wows.model.db.Provider;
 import it.roccatello.wows.repository.IntervalRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
