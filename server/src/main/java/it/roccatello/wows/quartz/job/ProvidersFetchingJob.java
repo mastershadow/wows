@@ -3,21 +3,28 @@ package it.roccatello.wows.quartz.job;
 import java.util.Map;
 import java.util.Optional;
 
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import it.roccatello.wows.service.TickerService;
+import it.roccatello.wows.model.data.BrokerCandleRequest;
 import it.roccatello.wows.service.ProviderService;
 import it.roccatello.wows.service.broker.BrokerService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@DisallowConcurrentExecution
 public class ProvidersFetchingJob extends QuartzJobBean {
 
   @Autowired
   private ProviderService providerService;
+
+  @Autowired
+  private TickerService tickerService;
 
   @Autowired
   private Map<String, BrokerService> brokerServices;
@@ -28,19 +35,29 @@ public class ProvidersFetchingJob extends QuartzJobBean {
 
   @PostConstruct
   private void configure() {
-    providerService.getEnabledProviders().forEach(provider -> {
-      getBroker(provider.getCode()).ifPresent(broker -> {
-        broker.configure(provider);
-      });
+    this.providerService.enabledProviders().forEach(
+      provider -> {
+        getBroker(provider.getCode())
+          .ifPresent(broker -> broker.configure(provider));
     });
   }
 
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-    providerService.getEnabledProviders().forEach(provider -> {
-      getBroker(provider.getCode()).ifPresent(broker -> {
-        log.info("{}", broker);
-      });
+    this.providerService.firstProvider().ifPresent(
+
+      provider -> {
+        getBroker(provider.getCode()).ifPresent(
+
+          broker -> {
+            log.debug("Candle fetching on provider: {}", broker.getCode());  
+            this.tickerService.enabledTickers().forEach(
+              
+              ticker -> {
+                var req = new BrokerCandleRequest(ticker.getTicker(), null);
+                broker.fetchCandles(req);
+              });
+          });
     });
   }
 }

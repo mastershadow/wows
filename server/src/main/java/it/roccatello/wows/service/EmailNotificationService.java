@@ -16,7 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import it.roccatello.wows.config.AppProperties;
-import it.roccatello.wows.model.EmailData;
+import it.roccatello.wows.model.data.EmailData;
 import it.roccatello.wows.repository.NotificationRepository;
 
 @Slf4j

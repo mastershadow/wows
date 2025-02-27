@@ -1,4 +1,4 @@
-package it.roccatello.wows.model;
+package it.roccatello.wows.model.data;
 import java.io.File;
 import java.util.List;
 

@@ -3,6 +3,8 @@ package it.roccatello.wows.service.broker;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import it.roccatello.wows.model.data.BrokerCandleRequest;
+import it.roccatello.wows.model.data.BrokerCandleResponse;
 import it.roccatello.wows.model.db.Provider;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +27,10 @@ public class BitvavoService extends BrokerService {
   public void configure(Provider provider) {
     this.apiKey = String.valueOf(provider.getAttrs().get("key"));
     this.apiSecret = String.valueOf(provider.getAttrs().get("secret"));
+  }
+
+  @Override
+  public BrokerCandleResponse fetchCandles(BrokerCandleRequest request) {
+    return null;
   }
 }

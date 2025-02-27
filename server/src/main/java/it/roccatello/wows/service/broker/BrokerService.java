@@ -2,6 +2,8 @@ package it.roccatello.wows.service.broker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.roccatello.wows.model.data.BrokerCandleRequest;
+import it.roccatello.wows.model.data.BrokerCandleResponse;
 import it.roccatello.wows.model.db.Provider;
 import it.roccatello.wows.service.RestHttpService;
 
@@ -12,4 +14,5 @@ public abstract class BrokerService {
   public abstract String getCode();
   public abstract void configure(Provider provider);
 
+  public abstract BrokerCandleResponse fetchCandles(BrokerCandleRequest request);
 }
