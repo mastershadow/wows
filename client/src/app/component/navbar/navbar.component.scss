@@ -1,7 +1,18 @@
-.spacer {
-  flex: 1 1 auto;
-}
+:host {
+  mat-toolbar {
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+  }
 
-.active mat-icon {
-  color: red;
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  mat-icon {
+    color: var(--mat-sys-on-primary);
+  }
+
+  .active mat-icon {
+    color: var(--mat-sys-inverse-primary);
+  }
 }

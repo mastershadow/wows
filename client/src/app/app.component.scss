@@ -1,12 +1,12 @@
 :host {
   display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
 
   section.container {
     display: flex;
     flex-direction: column;
-    margin: 1rem;
     flex-grow: 1;
   }
 }

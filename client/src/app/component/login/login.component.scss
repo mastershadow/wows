@@ -1,4 +1,5 @@
 :host {
+  background-color: var(--mat-sys-inverse-primary);
   display: flex;
   text-align: center;
   align-items: center;
@@ -9,6 +10,7 @@
   form {
     width: 400px;
     display: block;
+    background-color: var(--mat-sys-surface);
   }
 
   .login-form {

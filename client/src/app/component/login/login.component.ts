@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   private _snackBar = inject(MatSnackBar);
-  private readonly afterLogin = ['trades'];
+  private readonly afterLogin = ['dashboard'];
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
