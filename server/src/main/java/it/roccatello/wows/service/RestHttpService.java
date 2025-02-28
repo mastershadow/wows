@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 
 import io.reactivex.rxjava3.core.Observable;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -15,7 +16,7 @@ import okhttp3.Response;
 @Service
 @Slf4j
 public class RestHttpService {
-  private final OkHttpClient client;
+  @Getter private final OkHttpClient client;
 
   public RestHttpService() {
     this.client = new OkHttpClient().newBuilder()
