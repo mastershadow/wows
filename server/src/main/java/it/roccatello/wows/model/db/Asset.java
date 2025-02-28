@@ -18,4 +18,7 @@ public class Asset extends BaseDbModel {
 
   @ManyToOne
   private Ticker ticker;
+
+  @ManyToOne
+  private Provider provider;
 }
