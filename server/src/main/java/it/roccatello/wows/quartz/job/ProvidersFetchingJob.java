@@ -54,7 +54,11 @@ public class ProvidersFetchingJob extends QuartzJobBean {
           getBroker(provider.getCode()).ifPresent(
 
               broker -> {
-                log.debug("Candle fetching on provider: {}", broker.getCode());
+                if (!broker.enabled()) {
+                  return;
+                }
+                
+                log.debug("Candle fetching on provider: {}", broker.code());
                 this.tickerService.enabledTickers().forEach(
                     ticker -> {
                       for (Interval interval : this.intervalService.enabledIntervals()) {

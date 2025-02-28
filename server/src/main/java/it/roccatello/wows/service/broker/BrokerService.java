@@ -11,8 +11,9 @@ public abstract class BrokerService {
   @Autowired
   protected RestHttpService httpService;
 
-  public abstract String getCode();
+  public abstract String code();
   public abstract void configure(Provider provider);
+  public abstract boolean enabled();
 
   public abstract BrokerCandleResponse fetchCandles(BrokerCandleRequest request);
 }
