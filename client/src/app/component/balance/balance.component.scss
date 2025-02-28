@@ -1,0 +1,16 @@
+:host {
+  mat-card-subtitle {
+    align-items: center;
+    display: flex;
+    margin: 1rem 0;
+
+    mat-icon {
+      margin-right: 0.5rem;
+      transform: scale(1.35);
+    }
+
+    span {
+      font-size: 1.8rem;
+    }
+  }
+}
