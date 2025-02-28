@@ -51,6 +51,10 @@ public class ProvidersFetchingJob extends QuartzJobBean {
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
     this.providerService.firstProvider().ifPresent(
         provider -> {
+          if (!provider.getFetchData()) {
+            return;
+          }
+          
           getBroker(provider.getCode()).ifPresent(
 
               broker -> {

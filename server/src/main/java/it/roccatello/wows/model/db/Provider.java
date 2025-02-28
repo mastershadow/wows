@@ -16,6 +16,7 @@ import lombok.Setter;
 public class Provider extends BaseDbModel {
   private String code;
   private Boolean enabled;
+  private Boolean fetchData;
   @Column(precision = 32, scale = 10)
   private BigDecimal buySpread;
   @Column(precision = 32, scale = 10)
