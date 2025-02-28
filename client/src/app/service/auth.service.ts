@@ -8,6 +8,7 @@ import { User } from '../model/User';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
+  private readonly TOKEN_KEY = "user";
 
 
   constructor(private api: RestApiService) {
@@ -33,7 +34,7 @@ export class AuthService {
             }));
         }),
         map(user => {
-          sessionStorage.setItem("user", JSON.stringify(user));
+          sessionStorage.setItem(this.TOKEN_KEY, JSON.stringify(user));
           this.currentUserSubject.next(user);
           return user;
         }));
@@ -42,6 +43,7 @@ export class AuthService {
   logout(): Observable<boolean> {
     // remove user from local storage and set current user to null
     return this.api.logout().pipe(map(v => {
+      sessionStorage.removeItem(this.TOKEN_KEY);
       this.currentUserSubject.next(this.unloggedUser());
       return v;
     }));
@@ -52,7 +54,7 @@ export class AuthService {
   }
 
   getUserFromStorageOrDefault(): User {
-    const data = sessionStorage.getItem("user");
+    const data = sessionStorage.getItem(this.TOKEN_KEY);
     if (data) {
       return JSON.parse(data) as User;
     }

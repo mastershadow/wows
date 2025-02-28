@@ -17,20 +17,21 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   private _snackBar = inject(MatSnackBar);
+  private readonly afterLogin = ['trades'];
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
 
   constructor(private auth: AuthService, private router: Router) {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['trades']);
+      this.router.navigate(this.afterLogin);
     }
   }
 
   onLoginClick(): void {
     if (this.emailFormControl.valid && this.passwordFormControl.valid) {
       this.auth.login(this.emailFormControl.value!, this.passwordFormControl.value!).subscribe(u => {
-        this.router.navigate(['trades']);
+        this.router.navigate(this.afterLogin);
       }, e => {
         this._snackBar.open("Error logging in");
       });
