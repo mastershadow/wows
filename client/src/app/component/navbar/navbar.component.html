@@ -1,14 +1,14 @@
 <mat-toolbar>
   <span>WoWs</span>
   <span class="spacer"></span>
-  <button mat-icon-button [routerLink]="['/balance']" routerLinkActive="active">
-    <mat-icon>money</mat-icon>
+  <button mat-icon-button routerLink="/dashboard" routerLinkActive="active">
+    <mat-icon>dashboard</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/tickers" routerLinkActive="active">
+    <mat-icon>assessment</mat-icon>
   </button>
   <button mat-icon-button routerLink="/trades" routerLinkActive="active">
     <mat-icon>timeline</mat-icon>
-  </button>
-  <button mat-icon-button routerLink="/assets" routerLinkActive="active">
-    <mat-icon>assignment</mat-icon>
   </button>
   <button mat-icon-button routerLink="/transactions" routerLinkActive="active">
     <mat-icon>cached</mat-icon>
