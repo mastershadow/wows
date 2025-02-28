@@ -6,5 +6,5 @@ import it.roccatello.wows.model.db.Ticker;
 
 public interface TickerRepository extends BaseRepository<Ticker> {
   List<Ticker> findAllByEnabledTrue();
-  List<Ticker> findByTicker(String ticker);
+  Ticker findOneByTicker(String ticker);
 }

@@ -12,6 +12,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import it.roccatello.wows.service.TickerService;
 import it.roccatello.wows.model.data.BrokerCandleRequest;
 import it.roccatello.wows.model.db.Interval;
+import it.roccatello.wows.service.CandleService;
 import it.roccatello.wows.service.IntervalService;
 import it.roccatello.wows.service.ProviderService;
 import it.roccatello.wows.service.broker.BrokerService;
@@ -27,6 +28,9 @@ public class ProvidersFetchingJob extends QuartzJobBean {
 
   @Autowired
   private TickerService tickerService;
+
+  @Autowired
+  private CandleService candleService;
 
   @Autowired
   private IntervalService intervalService;
@@ -54,7 +58,7 @@ public class ProvidersFetchingJob extends QuartzJobBean {
           if (!provider.getFetchData()) {
             return;
           }
-          
+
           getBroker(provider.getCode()).ifPresent(
 
               broker -> {
@@ -70,7 +74,7 @@ public class ProvidersFetchingJob extends QuartzJobBean {
                         log.debug("Fetching ticker: {}", req);
                         var res = broker.fetchCandles(req);
                         if (res != null) {
-
+                          this.candleService.save(res);
                         }
                       }
                     });

@@ -3,8 +3,11 @@ package it.roccatello.wows.model.db;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.springframework.data.repository.cdi.Eager;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +16,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Candle extends BaseDbModel {
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Ticker ticker;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Interval interval;
-  private LocalDateTime occurred;
+  private Long occurred;
 
   @Column(precision = 32, scale = 10)
   private BigDecimal open;

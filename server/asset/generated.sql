@@ -18,7 +18,7 @@
         "close" numeric(32,10),
         "max" numeric(32,10),
         "min" numeric(32,10),
-        "occurred" timestamp(6),
+        "occurred" bigint,
         "open" numeric(32,10),
         "volume" numeric(32,10),
         "interval" bigint,
@@ -59,6 +59,7 @@
         "buy_spread" numeric(32,10),
         "code" varchar(255),
         "enabled" boolean,
+        "fetch_data" boolean,
         "fixed_commission" numeric(32,10),
         "sell_spread" numeric(32,10),
         primary key ("id")

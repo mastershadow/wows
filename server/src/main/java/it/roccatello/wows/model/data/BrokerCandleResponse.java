@@ -1,13 +1,18 @@
 package it.roccatello.wows.model.data;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import it.roccatello.wows.model.dto.DtoCandle;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@ToString
 public class BrokerCandleResponse {
   private String ticker;
   private String interval;
-  private List<List<BigDecimal>> values;
+  @ToString.Exclude
+  private List<DtoCandle> values;
 }

@@ -3,9 +3,11 @@ package it.roccatello.wows.service.broker;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.apache.commons.codec.binary.Hex;
@@ -25,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.roccatello.wows.model.data.BrokerCandleRequest;
 import it.roccatello.wows.model.data.BrokerCandleResponse;
 import it.roccatello.wows.model.db.Provider;
+import it.roccatello.wows.model.dto.DtoCandle;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -44,6 +48,7 @@ public class BitvavoService extends BrokerService {
   private static final String HDR_ACCESS_SIGNATURE = "Bitvavo-Access-Signature";
   private static final String BASE_URL = "https://api.bitvavo.com/v2";
   private static final String API_CANDLES_URL = "/{0}/candles?interval={1}";
+
 
   @Getter
   @Setter
@@ -78,17 +83,26 @@ public class BitvavoService extends BrokerService {
     val res = this.httpService.request(this.buildRequest(url, false, null));
     if (res != null) {
       try {
-				var candles = this.<List<List<BigDecimal>>>convertString(res.body().string());
-        this.upsetCandles(candles);
+				var candles = this.<List<List<Object>>>convertString(res.body().string());
+        if (candles != null) {
+          var cdtos =candles.stream().map(ent -> {
+            var dto = new DtoCandle();
+            dto.setOccurred((Long)ent.get(0));
+            dto.setOpen(NumberUtils.toScaledBigDecimal((String)ent.get(1), 10, RoundingMode.HALF_UP));
+            dto.setMax(NumberUtils.toScaledBigDecimal((String)ent.get(2), 10, RoundingMode.HALF_UP));
+            dto.setMin(NumberUtils.toScaledBigDecimal((String)ent.get(3), 10, RoundingMode.HALF_UP));
+            dto.setClose(NumberUtils.toScaledBigDecimal((String)ent.get(4), 10, RoundingMode.HALF_UP));
+            dto.setVolume(NumberUtils.toScaledBigDecimal((String)ent.get(5), 10, RoundingMode.HALF_UP));
+            
+            return dto;
+          }).toList();
+          return new BrokerCandleResponse(request.getTicker(), request.getInterval(), cdtos);
+        }
 			} catch (IOException ex) {
         log.error("{}", ex);
 			}
     }
     return null;
-  }
-
-  protected void upsetCandles(List<List<BigDecimal>> candles) {
-
   }
 
   protected <T> T convertString(String string) {

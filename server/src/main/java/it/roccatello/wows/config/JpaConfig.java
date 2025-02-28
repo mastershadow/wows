@@ -93,8 +93,8 @@ public class JpaConfig {
     properties.setProperty("hibernate.jdbc.batch_size",
         env.getProperty("spring.jpa.properties.hibernate.jdbc.batch_size"));
 
-    properties.setProperty("hibernate.jdbc.order_inserts",
-        env.getProperty("spring.jpa.properties.hibernate.jdbc.order_inserts"));
+    properties.setProperty("hibernate.order_inserts",
+        env.getProperty("spring.jpa.properties.hibernate.order_inserts"));
 
     properties.setProperty("hibernate.hbm2ddl.schema-generation.script.append",
         env.getProperty("spring.jpa.properties.hibernate.hbm2ddl.schema-generation.script.append"));

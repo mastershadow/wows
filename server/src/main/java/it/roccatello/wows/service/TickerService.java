@@ -15,6 +15,10 @@ public class TickerService extends EntityManagerAwareService {
   private TickerRepository repository;
 
   public List<Ticker> enabledTickers() {
-    return this.repository.findAllByEnabledTrue().stream().peek(this.entityManager::detach).toList();
+    return this.detach(this.repository.findAllByEnabledTrue());
+  }
+
+  public Ticker ticker(String ticker) {
+    return this.repository.findOneByTicker(ticker);
   }
 }
