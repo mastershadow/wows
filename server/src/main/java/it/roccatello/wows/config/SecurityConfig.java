@@ -37,7 +37,7 @@ public class SecurityConfig {
 
   private final String[] WHITE_LIST = new String[] { //
       "/error",
-      "/api/v1/login",
+      "/api/v1/user/login",
       "/robots.txt", //
       "/assets/**", //
       "/css/**", //
