@@ -7,6 +7,7 @@ import { TransactionsComponent } from '@/component/transactions/transactions.com
 import { TradesComponent } from './component/trades/trades.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TickersComponent } from './component/tickers/tickers.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 const isLoggedGuard: CanActivateFn = (route, state) => { return inject(AuthService).isLoggedIn() };
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'trades', component: TradesComponent, canActivate: [ isLoggedGuard ] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [ isLoggedGuard ] },
   { path: 'tickers', component: TickersComponent, canActivate: [ isLoggedGuard ] },
+  { path: 'settings', component: SettingsComponent, canActivate: [ isLoggedGuard ] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
