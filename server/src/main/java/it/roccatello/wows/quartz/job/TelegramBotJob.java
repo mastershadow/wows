@@ -25,9 +25,5 @@ public class TelegramBotJob extends QuartzJobBean {
 
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-    if (BooleanUtils.isNotTrue(this.appProperties.getBot())) {
-      log.debug("Bot messages are disabled");
-      return;
-    }
   }
 }

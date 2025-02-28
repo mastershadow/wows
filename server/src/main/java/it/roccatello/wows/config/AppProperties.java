@@ -15,11 +15,15 @@ public class AppProperties {
   private Boolean email = false;
   private String emailFrom;
   private String emailTo;
-  private Boolean scheduler = false;
+  
   private String frontendUrl;
+
   private Boolean bot = false;
   private String botChatId;
   private String botToken;
+
+  private Boolean scheduler = false;
+  private Boolean dataFetching = false;
 
   @NotEmpty
   private File logPath;

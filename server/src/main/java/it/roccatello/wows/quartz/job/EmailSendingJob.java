@@ -23,10 +23,6 @@ public class EmailSendingJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        if (BooleanUtils.isNotTrue(this.appProperties.getEmail())) {
-            log.debug("Notification emails disabled");
-            return;
-        }
         log.debug("Processing notification emails...");
 
         try {

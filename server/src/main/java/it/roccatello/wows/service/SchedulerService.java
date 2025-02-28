@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -16,12 +17,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
+import it.roccatello.wows.config.AppProperties;
 import it.roccatello.wows.quartz.SchedulableJobCreator;
 import it.roccatello.wows.quartz.job.CleanupJob;
 import it.roccatello.wows.quartz.job.EmailSendingJob;
 import it.roccatello.wows.quartz.job.ProvidersFetchingJob;
 import it.roccatello.wows.quartz.job.TelegramBotJob;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class SchedulerService {
   private static final long SECOND = 1000L;
@@ -36,6 +40,9 @@ public class SchedulerService {
 
   @Autowired
   private ApplicationContext context;
+
+  @Autowired
+  private AppProperties appProperties;
 
   @Autowired
   private SchedulableJobCreator jobCreator;
@@ -90,6 +97,11 @@ public class SchedulerService {
   }
 
   private void startProvidersFetchingJob() {
+    if (BooleanUtils.isNotTrue(this.appProperties.getDataFetching())) {
+      log.warn("Periodic data fetching is disabled");
+      return;
+    }
+
     final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "ProvidersFetchingJob", "Data");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("ProvidersFetchingJobTrigger", new Date(),
         FIVE_MINUTES, Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
@@ -98,6 +110,11 @@ public class SchedulerService {
   }
 
   private void startEmailSendingJob() {
+    if (BooleanUtils.isNotTrue(this.appProperties.getEmail())) {
+      log.warn("Notification emails are disabled");
+      return;
+    }
+
     final JobDetail details = this.jobCreator.createJob(EmailSendingJob.class, true, context, "EmailSendingJob", "Notifications");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("EmailJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
@@ -105,6 +122,11 @@ public class SchedulerService {
   }
 
   private void startTelegramBot() {
+    if (BooleanUtils.isNotTrue(this.appProperties.getBot())) {
+      log.warn("Bot messages are disabled");
+      return;
+    }
+    
     final JobDetail details = this.jobCreator.createJob(TelegramBotJob.class, true, context, "TelegramBotSendingJob", "Notifications");
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("PushJobTrigger", new Date(), FIFTEEN_SECONDS,
         Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
