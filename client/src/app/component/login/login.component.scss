@@ -1,15 +1,23 @@
 :host {
-  width: 500px;
-  margin: 100px auto;
-  display: block;
+  display: flex;
   text-align: center;
-}
-
-.login-form {
-  padding: 2rem;
-  border: 1px solid red;
-}
-
-.full-width {
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  flex-grow: 1;
+
+  form {
+    width: 400px;
+    display: block;
+  }
+
+  .login-form {
+    padding: 2rem;
+    border: 4px solid var(--mat-sys-primary);
+    border-radius: 8px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
 }
