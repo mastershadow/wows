@@ -72,7 +72,6 @@ public class SecurityConfig {
   AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
     AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
     authenticationManagerBuilder
-      .authenticationProvider(new DaoAuthenticationProvider())
       .userDetailsService(userDetailsService())
       .passwordEncoder(passwordEncoder());
     return authenticationManagerBuilder.build();

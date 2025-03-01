@@ -56,7 +56,7 @@ public class WebConfig extends DelegatingWebMvcConfiguration {
     @Bean
     public LocaleResolver localeResolver() {
         final AcceptHeaderLocaleResolver slr = new AcceptHeaderLocaleResolver();
-        slr.setDefaultLocale(Locale.ITALIAN);
+        slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 
