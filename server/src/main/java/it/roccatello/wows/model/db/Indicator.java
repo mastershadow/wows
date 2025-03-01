@@ -9,4 +9,5 @@ import lombok.Setter;
 @Setter
 public class Indicator extends BaseDbModel {
   private String code;
+  private String name;
 }

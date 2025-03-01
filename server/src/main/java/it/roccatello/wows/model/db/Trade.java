@@ -31,6 +31,7 @@ public class Trade extends BaseDbModel {
 
   private Boolean open = Boolean.TRUE;
   private Boolean stopLoss = Boolean.TRUE;
+  private Boolean manual = Boolean.FALSE;
 
   private LocalDateTime buyTimestamp;
   private LocalDateTime sellTimestamp;

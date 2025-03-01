@@ -435,5 +435,27 @@ INSERT INTO public.ticker (autotrade,enabled,keep_minimum,ticker,"name") VALUES
 	 (false,false,0.0000000000,'ZRO-EUR','Protocol Zero'),
 	 (false,false,0.0000000000,'ZRX-EUR','0x'),
 	 (false,false,0.0000000000,'ALGO-EUR','Algorand');
+	 
+INSERT INTO public."indicator" (code,"name") VALUES
+	 ('OBV','On-Balance Volume'),
+	 ('AD','Accumulation - Distribution'),
+	 ('ADX','Average Directional Index'),
+	 ('AROON','Aroon Indicator'),
+	 ('MACD','MACD'),
+	 ('RSI','Relative Strength Index'),
+	 ('STOOSC','Stochastic Oscillator'),
+	 ('BEARENG','Bearish Engulfing'),
+	 ('BEARHAR','Bearish Harami'),
+	 ('BULLENG','Bullish Engulfing'),
+	 ('BULLHAR','Bullish Harami'),
+	 ('DOJI','Doji'),
+	 ('HAMMER','Hammer'),
+	 ('INVHAMMER','Inverted Hammer'),
+	 ('HANGMAN','Hanging Man'),
+	 ('SHOOTSTAR','Shooting Star'),
+	 ('THREEBC','Three Black Crows'),
+	 ('THREEWS','Three White Soldiers'),
+	 ('LOWSHAD','Lower Shadow'),
+	 ('UPSHAD','Upper Shadow');
 
 COMMIT;
