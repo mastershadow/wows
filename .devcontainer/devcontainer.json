@@ -21,7 +21,8 @@
 			"extensions": [
 				"jebbs.plantuml",
 				"vmware.vscode-boot-dev-pack",
-				"Angular.ng-template"
+				"Angular.ng-template",
+				"eamodio.gitlens"
 			]
 		}
 	},
