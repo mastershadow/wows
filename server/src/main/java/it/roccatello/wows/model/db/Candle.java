@@ -1,9 +1,6 @@
 package it.roccatello.wows.model.db;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import org.springframework.data.repository.cdi.Eager;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

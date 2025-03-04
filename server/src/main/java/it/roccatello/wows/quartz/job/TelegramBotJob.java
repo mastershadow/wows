@@ -1,6 +1,5 @@
 package it.roccatello.wows.quartz.job;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
