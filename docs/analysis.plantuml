@@ -1,2 +1,19 @@
-@startmindmap analysis
+@startuml analysis
+start
+while (has more tickers)
+  #Cyan:fill gaps in data since last processing;
+  while (has more indicators)
+    :get last indicator data frames;
+    #LightGreen:generate data for indicator;
+    :save indicator data;
+  endwhile
+  #Pink:generate agnostic signals for ticker;
+  #Yellow:evaluate current trades;
+  #HotPink:generate actions for ticker;
+endwhile
+stop
+@enduml
+
+@startmindmap analysis-actions
++ WOWS
 @endmindmap
