@@ -104,6 +104,16 @@ class Token {
 
 }
 
+class IndicatorData {
+  from
+  to
+  data
+}
+
 User -- Token
 Notification -- User
+
+IndicatorData -- Indicator
+IndicatorData -- Ticker
+IndicatorData -- Interval
 @enduml
