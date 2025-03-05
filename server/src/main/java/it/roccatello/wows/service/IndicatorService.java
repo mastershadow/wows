@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import it.roccatello.wows.model.db.Indicator;
 import it.roccatello.wows.model.db.IndicatorData;
+import it.roccatello.wows.model.db.Interval;
 import it.roccatello.wows.model.db.Ticker;
 import it.roccatello.wows.model.dto.DtoIndicatorData;
 import it.roccatello.wows.repository.IndicatorDataRepository;
@@ -25,11 +26,11 @@ public class IndicatorService extends EntityManagerAwareService {
     return this.detach(this.repository.findByEnabledTrue());
   }
 
-  public List<IndicatorData> listData(Indicator indicator, Ticker ticker, Long since) {
+  public List<IndicatorData> listData(Indicator indicator, Ticker ticker, Interval interval, Long since) {
     if (since == null) {
-      return this.detach(this.dataRepository.findByTickerAndIndicator(ticker, indicator));  
+      return this.detach(this.dataRepository.findByTickerAndIndicatorAndInterval(ticker, indicator, interval));  
     }
-    return this.detach(this.dataRepository.findByTickerAndIndicatorAndStartLessThanEqual(ticker, indicator, since));
+    return this.detach(this.dataRepository.findByTickerAndIndicatorAndIntervalAndStartLessThanEqual(ticker, indicator, interval, since));
   }
 
   public void saveData(DtoIndicatorData data) {
