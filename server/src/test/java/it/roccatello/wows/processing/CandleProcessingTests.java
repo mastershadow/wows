@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ActiveProfiles;
+import org.ta4j.core.indicators.candles.BullishEngulfingIndicator;
+import org.ta4j.core.indicators.volume.OnBalanceVolumeIndicator;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,7 +38,8 @@ class CandleProcessingTests {
 
 	@BeforeEach
 	private void setup() throws StreamReadException, DatabindException, IOException {
-		this.candles = this.loadData("classpath:candles-1h.json");
+		var interpolator = new CandleDataHoleInterpolator(IntervalConst.I_1H);
+		this.candles = interpolator.process(this.loadData("classpath:candles-1h.json"));
 	}
 
 	private List<DtoCandle> loadData(String file) {
@@ -65,13 +68,21 @@ class CandleProcessingTests {
 	@Test
 	void holesTest() {
 		var brokenCandles = this.loadData("classpath:candles-1h-holes.json");
-		var fixer = new CandleDataHoleFixer(IntervalConst.I_1H);
-		var okCandles = fixer.process(brokenCandles);
+		var interpolator = new CandleDataHoleInterpolator(IntervalConst.I_1H);
+		var okCandles = interpolator.process(brokenCandles);
 		log.debug("{} --> {}", brokenCandles.size(), okCandles.size());
 	}
 
 	@Test
 	void obvTest() {
+		var obv = new OnBalanceVolumeIndicator(BarSeriesConverter.convert(this.candles));
+		log.info("{}", obv);	
+	}
+
+	@Test
+	void bullishEng() {
+		var bueng = new BullishEngulfingIndicator(BarSeriesConverter.convert(this.candles));
+		log.info("{}", bueng);
 	}
 
 }

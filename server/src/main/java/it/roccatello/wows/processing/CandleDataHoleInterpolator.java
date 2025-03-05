@@ -13,10 +13,10 @@ import it.roccatello.wows.service.IntervalService.IntervalConst;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CandleDataHoleFixer {
+public class CandleDataHoleInterpolator {
   private final long step;
 
-  public CandleDataHoleFixer(IntervalConst interval) {
+  public CandleDataHoleInterpolator(IntervalConst interval) {
     this.step = interval.epochStep();
   }
 
