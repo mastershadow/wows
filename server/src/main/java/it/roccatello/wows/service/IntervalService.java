@@ -48,23 +48,27 @@ public class IntervalService extends EntityManagerAwareService {
   }
 
   public enum IntervalConst {
-    I_1M("1m"),
-    I_5M("5m"),
-    I_15M("15m"),
-    I_30M("30m"),
-    I_1H("1h"),
-    I_2H("2h"),
-    I_4H("4h"),
-    I_6H("6h"),
-    I_8H("8h"),
-    I_16H("16h"),
-    I_1D("1d");
+    I_1M("1m", 60 * 1000L),
+    I_5M("5m", 5 * 60 * 1000L),
+    I_15M("15m", 15 * 60 * 1000L),
+    I_30M("30m", 30 * 60 * 1000L),
+    I_1H("1h", 60 * 60 * 1000L),
+    I_2H("2h", 2 * 60 * 60 * 1000L),
+    I_4H("4h", 4 * 60 * 60 * 1000L),
+    I_6H("6h", 6 * 60 * 60 * 1000L),
+    I_8H("8h", 8 * 60 * 60 * 1000L),
+    I_16H("16h", 16 * 60 * 60 * 1000L),
+    I_1D("1d", 24 * 60 * 60 * 1000L);
 
     @Getter
     private String code;
 
-    IntervalConst(String code) {
+    @Getter
+    private long epochStep;
+
+    IntervalConst(String code, long epochStep) {
       this.code = code;
+      this.epochStep = epochStep;
     }
 
     public static IntervalConst fromCode(final String code) {

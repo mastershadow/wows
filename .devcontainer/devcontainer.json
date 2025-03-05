@@ -23,8 +23,11 @@
 				"vmware.vscode-boot-dev-pack",
 				"Angular.ng-template",
 				"eamodio.gitlens"
-			]
+			],
+			"settings": {
+        "remote.autoForwardPorts": false
+			}
 		}
 	},
-	"forwardPorts": [ 8080 ]
+	"forwardPorts": [ 8080, 4200 ]
 }
