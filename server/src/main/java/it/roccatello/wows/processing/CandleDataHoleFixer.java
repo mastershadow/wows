@@ -1,12 +1,9 @@
 package it.roccatello.wows.processing;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.common.collect.Maps;
 
@@ -66,7 +63,6 @@ public class CandleDataHoleFixer {
         }
       }
     }
-
 
     return input;
   }
