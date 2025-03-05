@@ -3,6 +3,7 @@ package it.roccatello.wows.processing;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Maps;
@@ -25,7 +26,7 @@ public class CandleDataHoleFixer {
    * @return
    */
   public List<DtoCandle> process(List<DtoCandle> input) {
-    // find holes
+    // find holes and duplicated
     var holeAfter = Maps.<Integer, Long>newHashMap();
     for (int i = 0; i < input.size() - 1; ++i) {
       var s = input.get(i).getOccurred();
@@ -35,10 +36,13 @@ public class CandleDataHoleFixer {
       } else if (e == s) {
         log.warn("Duplicated data found for input");
       }
-
     }
+    if (!holeAfter.isEmpty()) {
+      log.warn("Found {} hole(s) with max span {} intervals.", holeAfter.size(), Collections.max(holeAfter.values()));
+    }
+
     // close holes
-    var output = new ArrayList<>(input.size());
+    var output = new ArrayList<DtoCandle>(input.size());
     for (int i = 0; i < input.size(); ++i) {
       var c1 = input.get(i);
       output.add(c1);
@@ -64,7 +68,7 @@ public class CandleDataHoleFixer {
       }
     }
 
-    return input;
+    return output;
   }
 
 }

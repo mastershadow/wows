@@ -67,7 +67,7 @@ class CandleProcessingTests {
 		var brokenCandles = this.loadData("classpath:candles-1h-holes.json");
 		var fixer = new CandleDataHoleFixer(IntervalConst.I_1H);
 		var okCandles = fixer.process(brokenCandles);
-		log.debug("{}", okCandles.size());
+		log.debug("{} --> {}", brokenCandles.size(), okCandles.size());
 	}
 
 	@Test
