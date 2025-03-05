@@ -1,5 +1,6 @@
 package it.roccatello.wows.service;
 
+import java.time.Instant;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +9,27 @@ import org.springframework.stereotype.Service;
 
 import it.roccatello.wows.model.data.BrokerCandleResponse;
 import it.roccatello.wows.model.db.Candle;
+import it.roccatello.wows.model.db.DataFetch;
 import it.roccatello.wows.model.db.Interval;
 import it.roccatello.wows.model.db.Ticker;
 import it.roccatello.wows.model.dto.DtoCandle;
 import it.roccatello.wows.repository.CandleRepository;
+import it.roccatello.wows.repository.DataFetchRepository;
 import it.roccatello.wows.service.IntervalService.IntervalConst;
+import jakarta.transaction.Transactional;
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@Transactional
 public class CandleService {
 
   @Autowired
   private CandleRepository repository;
+
+  @Autowired
+  private DataFetchRepository dataFetchRepository;
 
   @Lazy
   @Autowired
@@ -45,10 +54,19 @@ public class CandleService {
         
     var filteredCandles = candles.stream().filter(c -> !existingTimestamp.contains(c.getOccurred())).toList();
     log.debug("Adding non existing {} candle(s).", filteredCandles.size());
-    filteredCandles.forEach(c -> {
-      this.repository.save(this.convertToEntity(c, t, i));
-    });
-    this.repository.flush();
+    if (!filteredCandles.isEmpty()) {
+      filteredCandles.forEach(c -> {
+        this.repository.save(this.convertToEntity(c, t, i));
+      });
+      this.repository.flush();
+      
+      // update data fetching
+      val df = new DataFetch();
+      df.setTicker(t);
+      df.setInterval(i);
+      df.setOccurred(Instant.now().toEpochMilli());
+      this.dataFetchRepository.saveAndFlush(df);
+    }
   }
 
   private Candle convertToEntity(DtoCandle d, Ticker t, Interval i) {

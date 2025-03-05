@@ -51,6 +51,7 @@ public class SchedulerService {
 
   public void startJobs() {
     this.startProvidersFetchingJob();
+    this.startIndicatorBuilderJob();
     this.startEmailSendingJob();
     this.startTelegramBot();
     this.startCleanupJob();
@@ -96,6 +97,18 @@ public class SchedulerService {
     return null;
   }
 
+  private void startIndicatorBuilderJob() {
+    if (BooleanUtils.isNotTrue(this.appProperties.getDataProcessing())) {
+      log.warn("Data processing is disabled");
+      return;
+    }
+
+    final JobDetail details = this.jobCreator.createJob(ProvidersFetchingJob.class, true, context, "IndicatorBuilderJob", "Data");
+    final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("IndicatorBuilderJobTrigger", new Date(),
+        MINUTE, Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
+    this.startJob(details, trigger);
+  }
+
   private void startProvidersFetchingJob() {
     if (BooleanUtils.isNotTrue(this.appProperties.getDataFetching())) {
       log.warn("Periodic data fetching is disabled");
@@ -106,7 +119,6 @@ public class SchedulerService {
     final SimpleTrigger trigger = this.jobCreator.createSimpleTrigger("ProvidersFetchingJobTrigger", new Date(),
         FIVE_MINUTES, Trigger.MISFIRE_INSTRUCTION_SMART_POLICY);
     this.startJob(details, trigger);
-
   }
 
   private void startEmailSendingJob() {

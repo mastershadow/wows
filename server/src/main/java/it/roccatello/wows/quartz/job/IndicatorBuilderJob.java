@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DisallowConcurrentExecution
-public class IndicatorBuildingJob extends QuartzJobBean {
+public class IndicatorBuilderJob extends QuartzJobBean {
 
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {

@@ -24,6 +24,7 @@ public class AppProperties {
 
   private Boolean scheduler = false;
   private Boolean dataFetching = false;
+  private Boolean dataProcessing = false;
 
   @NotEmpty
   private File logPath;
