@@ -19,6 +19,9 @@ public class IndicatorData extends BaseDbModel {
   @ManyToOne
   private Ticker ticker;
 
+  @ManyToOne
+  private Interval interval;
+
   private Long start;
 
   private Long end;

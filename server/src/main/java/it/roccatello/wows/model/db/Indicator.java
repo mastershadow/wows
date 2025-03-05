@@ -10,4 +10,5 @@ import lombok.Setter;
 public class Indicator extends BaseDbModel {
   private String code;
   private String name;
+  private Boolean enabled;
 }
